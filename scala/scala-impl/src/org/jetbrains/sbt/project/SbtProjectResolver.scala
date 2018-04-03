@@ -428,7 +428,7 @@ class SbtProjectResolver extends ExternalSystemProjectResolver[SbtExecutionSetti
   private def createModule(project: sbtStructure.ProjectData, moduleFilesDirectory: File): ModuleNode = {
     // TODO use both ID and Name when related flaws in the External System will be fixed
     // TODO explicit canonical path is needed until IDEA-126011 is fixed
-    val result = new ModuleNode(StdModuleTypes.JAVA.getId, project.id, project.id,
+    val result = new ModuleNode(StdModuleTypes.JAVA.getId, project.id, project.name,
       moduleFilesDirectory.path, project.base.canonicalPath)
 
     result.setInheritProjectCompileOutputPath(false)
@@ -503,7 +503,7 @@ class SbtProjectResolver extends ExternalSystemProjectResolver[SbtExecutionSetti
 
   // TODO where do I add build module cross-dependencies so that code is resolved correctly?
   private def createBuildModule(project: sbtStructure.ProjectData, moduleFilesDirectory: File, localCachePath: Option[String]): ModuleNode = {
-    val id = project.id + Sbt.BuildModuleSuffix
+    val id = project.name + Sbt.BuildModuleSuffix
     val buildRoot = project.base / Sbt.ProjectDirectory
 
     // TODO use both ID and Name when related flaws in the External System will be fixed
